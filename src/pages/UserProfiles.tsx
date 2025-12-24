@@ -1,4 +1,11 @@
-type Props = {}
+import { Link } from "react-router-dom";
+import PgaeBreadCrum from "../common/PageBreadCrum";
+
+type Props = {};
 export const UserProfiles = ({}: Props) => {
-  return <div>UserProfiles</div>
-}
+  return (
+    <div>
+      <PgaeBreadCrum pageTitle="Profile" />
+    </div>
+  );
+};
