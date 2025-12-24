@@ -1,3 +1,5 @@
+import { useState } from 'react'
+import { useSidebar } from '../context/SideBarContext'
 import { BoxCubeIcon, CalenderIcon, ChevronDownIcon, GridIcon, HorizontaLDots, ListIcon, PageIcon, PieChartIcon, PlugInIcon, TableIcon, UserCircleIcon } from '../icons'
 import { Link } from 'react-router-dom'
 
@@ -80,9 +82,36 @@ const othersItems: NavItem[] = [
   }
 ]
 export const AppSidebar: React.FC<Props> = ({}) => {
+  const { isExpanded, isMobileOpen, isHovered, setIsHovered } = useSidebar()
+  const [openSubmenu, setOpenSubmenu] = useState<{
+    type: 'main' | 'others'
+    index: number
+  } | null>(null)
+  const renderMenuItems = (items: NavItem[], menuType: 'main' | 'others') => (
+    <ul>
+      {items.map((nav, index) => (
+        <li key={index}>
+          {nav.subItems ? (
+            <button className={`menu-item group ${openSubmenu?.type === menuType && openSubmenu?.index === index ? 'menu-item-active' : 'menu-item-inactive'} cursor-pointer ${!isExpanded && !isHovered ? 'lg:justify-center' : 'lg:justify-start'}`}>
+              <span className={`menu-item-icon-size  ${openSubmenu?.type === menuType && openSubmenu?.index === index ? 'menu-item-icon-active' : 'menu-item-icon-inactive'}`}>{nav.icon}</span>
+              {(isExpanded || isHovered || isMobileOpen) && <span className="menu-item-text">{nav.name}</span>}
+              {(isExpanded || isHovered || isMobileOpen) && <ChevronDownIcon className={`ml-auto w-5 h-5 transition-transform duration-200 ${openSubmenu?.type === menuType && openSubmenu?.index === index ? 'rotate-180 text-brand-500' : ''}`} />}
+            </button>
+          ) : (
+            nav.path &&
+            // <Link to={nav.path} className={`menu-item group ${isActive(nav.path) ? 'menu-item-active' : 'menu-item-inactive'}`}>
+            //   <span className={`menu-item-icon-size ${isActive(nav.path) ? 'menu-item-icon-active' : 'menu-item-icon-inactive'}`}>{nav.icon}</span>
+            //   {(isExpanded || isHovered || isMobileOpen) && <span className="menu-item-text">{nav.name}</span>}
+            // </Link>
+            22
+          )}
+        </li>
+      ))}
+    </ul>
+  )
   return (
     <div>
-      侧边
+      {renderMenuItems(navItems, 'main')}
       <Link to="/userProfiles">UserProfiles</Link>
     </div>
   )
