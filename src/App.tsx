@@ -1,7 +1,7 @@
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import { AppLayout } from "./layout/AppLayout";
-import { Home } from "./pages/Home";
-import { UserProfiles } from "./pages/UserProfiles";
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
+import { AppLayout } from './layout/AppLayout'
+import { Home } from './pages/Home'
+import { UserProfiles } from './components/UserProfile/UserProfiles'
 
 function App() {
   return (
@@ -15,7 +15,7 @@ function App() {
         </Routes>
       </Router>
     </>
-  );
+  )
 }
 
-export default App;
+export default App

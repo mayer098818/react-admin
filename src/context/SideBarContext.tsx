@@ -23,9 +23,9 @@ export const useSidebar = () => {
   return context
 }
 export const SideBarProvider: React.FC<Props> = ({ children }) => {
-  const [isExpanded, setIsExpanded] = useState(false)
+  const [isExpanded, setIsExpanded] = useState(true)
   const [isHovered, setIsHovered] = useState(false)
   const [isMobileOpen, setIsMobileOpen] = useState(false)
   // value传入需要再包裹一层
-  return <SidebarContext.Provider value={{ isExpanded, isHovered, isMobileOpen }}>{children}</SidebarContext.Provider>
+  return <SidebarContext.Provider value={{ isExpanded, isHovered, isMobileOpen, setIsHovered }}>{children}</SidebarContext.Provider>
 }
