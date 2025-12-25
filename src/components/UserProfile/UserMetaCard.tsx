@@ -1,12 +1,32 @@
 import { useState } from 'react'
 import Modal from '../ui/Modal'
+import FormComponent from '../../layout/Form'
+import { useQuery } from '@tanstack/react-query'
+import { Spinner } from '../../common/Spinner'
+
+// 将 fetchUser 移到组件外部，避免每次渲染都重新创建
+async function fetchUser() {
+  const res = await fetch('http://localhost:9000/users')
+  console.log(res, 'res')
+  if (!res.ok) throw new Error('unkown error')
+  const data = await res.json()
+  return data
+}
 
 type Props = {}
 export const UserMetaCard = ({}: Props) => {
   const [isOpen, setIsOpen] = useState(false)
+  const [userInfo, setUserInfo] = useState({})
+
+  const { data: users, isLoading } = useQuery({
+    queryKey: ['user'],
+    queryFn: fetchUser
+  })
+  console.log(users, isLoading, 'init')
   function handleClick() {
     setIsOpen(true)
   }
+  if (isLoading) return <Spinner />
   return (
     <>
       <div className="p-5 border border-gray-200 rounded-2xl dark:border-gray-800 lg:p-6s">
@@ -88,7 +108,13 @@ export const UserMetaCard = ({}: Props) => {
         </div>
       </div>
       <Modal isOpen={isOpen} className="max-w-[700px] m-4">
-        11
+        <div>
+          <div className="px-2 pr-14">
+            <h4 className="mb-2 text-2xl font-semibold text-gray-800 dark:text-white/90">Edit Personal Information</h4>
+            <p className="mb-6 text-sm text-gray-500 dark:text-gray-400 lg:mb-7">Update your details to keep your profile up-to-date.</p>
+          </div>
+        </div>
+        <FormComponent />
       </Modal>
     </>
   )

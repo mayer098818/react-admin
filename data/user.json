@@ -1,0 +1,17 @@
+{
+  "users": [
+    {
+      "id": 1,
+      "firstName": "John",
+      "lastName": "Doe",
+      "email": "john@example.com",
+      "social": {
+        "facebook": "fb.com/john",
+        "twitter": "@john",
+        "linkedin": "",
+        "instagram": ""
+      },
+      "mood": "happy"
+    }
+  ]
+}
